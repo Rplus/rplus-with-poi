@@ -1,0 +1,80 @@
+support-for-ie = false;
+@import 'nib';
+$clearfix {
+  &:after {
+    content: ''
+    display: table
+    clear: both
+  }
+}
+
+$col {
+  width: 50%
+  height: 100%
+  float: left
+  background-position: 50% 35%
+  background-repeat: no-repeat
+  background-size: 70%
+}
+
+@keyframes ranbow {
+  0%  {background-color: hsl(  0, 100%,  0%)}
+  20% {background-color: hsl(  0, 100%, 50%)}
+  40% {background-color: hsl(144, 100%, 50%)}
+  60% {background-color: hsl(216, 100%, 50%)}
+  80% {background-color: hsl(288, 100%, 50%)}
+  100%{background-color: hsl(360, 100%, 50%)}
+}
+
+/////////////////////////////////////
+
+
+html,
+body {
+  height: 100%
+  margin: 0
+}
+
+body {
+  @extend $clearfix
+  background-color: #000
+}
+
+body.ranbow {
+  background-image: linear-gradient( rgba(200,200,200,0.6), rgba(0,0,0,1) )
+  animation: ranbow 10s infinite alternate
+}
+
+.col-l {
+  @extend $col
+  background-color: #fff
+  background-image: url('../img/R+.svg')
+}
+
+.col-r {
+  @extend $col
+  background-image: url('../img/poi.svg')
+}
+.col-r:hover {
+  cursor: pointer
+}
+
+audio {
+  position: fixed
+  bottom: 0
+  right: 0
+  transition: opacity 1s
+  opacity: 0
+}
+
+.show {
+  opacity: .5
+}
+
+.online {
+  position: absolute
+  top: 0
+  left: 0
+  width: 50px
+  height: 50px
+}
