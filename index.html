@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>R+ intro</title>
+
+<style>
+
+.cf:after {
+  content: '';
+  display: table;
+  clear: both;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background-color: #000;
+  transition: background-color 3s;
+}
+
+body.ranbow {
+  background-image: linear-gradient( rgba(200,200,200,0.6), rgba(0,0,0,1) );
+  -webkit-animation: ranbow 10s infinite alternate;
+}
+
+@-webkit-keyframes ranbow {
+  0%  {background-color: hsl(0, 0%, 0%);}
+  20% {background-color: hsl(0, 100%, 50%);}
+  40% {background-color: hsl(144, 100%, 50%);}
+  60% {background-color: hsl(216, 100%, 50%);}
+  80% {background-color: hsl(288, 100%, 50%);}
+  100%{background-color: hsl(360, 100%, 50%);}
+}
+
+div[class^="col-"] {
+  width: 50%;
+  height: 100%;
+  float: left;
+  background-position: 50% 35%;
+  background-repeat: no-repeat;
+  background-size: 70%;
+}
+
+.col-l {
+  background-color: #fff;
+  background-image: url(R+.svg);
+}
+
+.col-r {
+  background-image: url(poi.svg);
+}
+.col-r:hover {
+  cursor: pointer;
+}
+
+audio {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  transition: opacity 1s;
+  opacity: 0;
+}
+
+.show {
+  opacity: .5;
+}
+
+</style>
+
+</head>
+<body class="cf">
+  <div class="col-l"></div>
+  <div class="col-r"></div>
+  <!-- <audio id="poiMusic" src="Lily allen - Fuck You (mp3cut.net).mp3" controls></audio> -->
+  <audio id="poiMusic" src="http://mp3luchshee.com/files/17339677/play.mp3" controls></audio>
+</body>
+<script>
+  var audio = document.getElementById('poiMusic'),
+      _colR = document.querySelector('.col-r'),
+      _body = document.getElementsByTagName('body')[0];
+
+  var playing = function () {
+    if (audio.paused) {
+      audio.play();
+      _body.classList.add('ranbow')
+    } else {
+      audio.pause();
+      _body.classList.remove('ranbow')
+    }
+  };
+
+  _colR.addEventListener('click', function () {
+    _body.classList.toggle('ranbow');
+    playing();
+  });
+
+  _colR.addEventListener('mousewheel', function () {
+    audio.classList.toggle('show');
+  });
+
+</script>
+</html>
