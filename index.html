@@ -70,38 +70,63 @@ audio {
   opacity: .5;
 }
 
+.online {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50px;
+  height: 50px;
+}
+
 </style>
 
 </head>
 <body class="cf">
   <div class="col-l"></div>
   <div class="col-r"></div>
-  <!-- <audio id="poiMusic" src="Lily allen - Fuck You (mp3cut.net).mp3" controls></audio> -->
-  <audio id="poiMusic" src="http://mp3luchshee.com/files/17339677/play.mp3" controls></audio>
+  <audio id="poiMusic" src="Lily allen - Fuck You (mp3cut.net).mp3" controls></audio>
+  <a href="https://googledrive.com/host/0B81pBcrHQu-rakZuOXBsckREdlE/index.html" class="online"></a>
 </body>
 <script>
-  var audio = document.getElementById('poiMusic'),
-      _colR = document.querySelector('.col-r'),
-      _body = document.getElementsByTagName('body')[0];
-
-  var playing = function () {
+  var
+  audio = document.getElementById('poiMusic'),
+  _colR = document.querySelector('.col-r'),
+  _body = document.getElementsByTagName('body')[0],
+  playing = function () {
     if (audio.paused) {
       audio.play();
-      _body.classList.add('ranbow')
     } else {
       audio.pause();
       _body.classList.remove('ranbow')
     }
-  };
+  },
+  hideAudio = function () {
+    audio.classList.remove('show');
+  }
+  ;
 
-  _colR.addEventListener('click', function () {
-    _body.classList.toggle('ranbow');
-    playing();
-  });
+  audio.addEventListener('loadedmetadata', function () {
+
+    audio.addEventListener('play', function(){
+      _body.classList.add('ranbow');
+      hideAudio();
+    }, false);
+
+    audio.addEventListener('pause', function(){
+      _body.classList.remove('ranbow');
+    }, false);
+
+    audio.addEventListener('ended', function(){
+      this.currentTime = 0;
+    }, false);
+
+    _colR.addEventListener('click', playing);
+
+  }, false);
 
   _colR.addEventListener('mousewheel', function () {
     audio.classList.toggle('show');
-  });
+  }, false);
 
 </script>
 </html>
