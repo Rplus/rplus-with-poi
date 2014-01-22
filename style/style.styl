@@ -28,7 +28,6 @@ $col {
 
 /////////////////////////////////////
 
-
 html,
 body {
   height: 100%
@@ -38,11 +37,10 @@ body {
 body {
   @extend $clearfix
   background-color: #000
-}
-
-body.ranbow {
-  background-image: linear-gradient( rgba(200,200,200,0.6), rgba(0,0,0,1) )
-  animation: ranbow 10s infinite alternate
+  &.ranbow {
+    background-image: linear-gradient( rgba(200,200,200,0.6), rgba(0,0,0,1) )
+    animation: ranbow 10s infinite alternate
+  }
 }
 
 .col-l {
@@ -54,9 +52,9 @@ body.ranbow {
 .col-r {
   @extend $col
   background-image: url('../img/poi.svg')
-}
-.col-r:hover {
-  cursor: pointer
+  &:hover {
+    cursor: pointer
+  }
 }
 
 audio {
@@ -66,7 +64,6 @@ audio {
   transition: opacity 1s
   opacity: 0
 }
-
 .show {
   opacity: .5
 }
