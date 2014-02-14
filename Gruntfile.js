@@ -2,13 +2,12 @@ module.exports = function(grunt) {
 
     // Project configuration.
     grunt.initConfig({
-        stylus: {
-            compile: {
-                option: {
-                    // urlfunc: 'embedurl'
-                },
-                files: {
-                    './style/style.css': './style/style.styl'
+        compass: {
+            dist: {
+                options: {
+                    cssDir: './style/',
+                    sassDir: './style/',
+                    imagesDir: './img/'
                 }
             }
         },
@@ -30,9 +29,9 @@ module.exports = function(grunt) {
         },
 
         watch: {
-            stylus: {
-                files: ['./style/*.styl'],
-                tasks: ['stylus'],
+            compass: {
+                files: ['./style/*.scss'],
+                tasks: ['compass', 'autoprefixer'],
                 options: {
                     livereload: true
                 }
@@ -53,7 +52,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
 
     // Default task.
-    grunt.registerTask('default', ['stylus', 'cssmin']);
+    grunt.registerTask('default', ['compass', 'cssmin']);
     grunt.registerTask('see', ['connect', 'watch']);
-    grunt.registerTask('make', ['stylus', 'cssmin']);
+    grunt.registerTask('make', ['compass', 'cssmin']);
 };
