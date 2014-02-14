@@ -22,6 +22,14 @@ module.exports = function(grunt) {
             }
         },
 
+        autoprefixer: {
+            // option: browsers: ['last 2 version', 'ie 8', 'ie 9'],
+            single_file: {
+                src: './style/style.css',
+                dest: './style/style.css'
+            }
+        },
+
         cssmin: {
             minify: {
                 files: {
@@ -50,5 +58,5 @@ module.exports = function(grunt) {
     // Default task.
     grunt.registerTask('default', ['compass', 'cssmin']);
     grunt.registerTask('see', ['connect', 'watch']);
-    grunt.registerTask('make', ['compass', 'cssmin']);
+    grunt.registerTask('make', ['compass', 'autoprefixer','cssmin']);
 };
