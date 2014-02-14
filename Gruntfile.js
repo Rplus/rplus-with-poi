@@ -1,14 +1,15 @@
 module.exports = function(grunt) {
 
+    require('load-grunt-tasks')(grunt);
+
     // Project configuration.
     grunt.initConfig({
-        stylus: {
-            compile: {
-                option: {
-                    // urlfunc: 'embedurl'
-                },
-                files: {
-                    './style/style.css': './style/style.styl'
+        compass: {
+            dist: {
+                options: {
+                    cssDir: './style/',
+                    sassDir: './style/',
+                    imagesDir: './img/'
                 }
             }
         },
@@ -21,6 +22,14 @@ module.exports = function(grunt) {
             }
         },
 
+        autoprefixer: {
+            // option: browsers: ['last 2 version', 'ie 8', 'ie 9'],
+            single_file: {
+                src: './style/style.css',
+                dest: './style/style.css'
+            }
+        },
+
         cssmin: {
             minify: {
                 files: {
@@ -30,9 +39,9 @@ module.exports = function(grunt) {
         },
 
         watch: {
-            stylus: {
-                files: ['./style/*.styl'],
-                tasks: ['stylus'],
+            compass: {
+                files: ['./style/*.scss'],
+                tasks: ['compass', 'autoprefixer'],
                 options: {
                     livereload: true
                 }
@@ -46,14 +55,8 @@ module.exports = function(grunt) {
         }
     });
 
-    // These plugins provide necessary tasks.
-    grunt.loadNpmTasks('grunt-contrib-connect');
-    grunt.loadNpmTasks('grunt-contrib-stylus');
-    grunt.loadNpmTasks('grunt-contrib-cssmin');
-    grunt.loadNpmTasks('grunt-contrib-watch');
-
     // Default task.
-    grunt.registerTask('default', ['stylus', 'cssmin']);
+    grunt.registerTask('default', ['compass', 'cssmin']);
     grunt.registerTask('see', ['connect', 'watch']);
-    grunt.registerTask('make', ['stylus', 'cssmin']);
+    grunt.registerTask('make', ['compass', 'autoprefixer','cssmin']);
 };

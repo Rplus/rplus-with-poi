@@ -1,0 +1,73 @@
+%cf {
+  &:after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+}
+
+%col {
+  width: 50%;
+  height: 100%;
+  float: left;
+  background-position: 50% 35%;
+  background-repeat: no-repeat;
+  background-size: 70%;
+}
+
+@keyframes ranbow {
+  $colors: 5;
+  @for $i from 0 through $colors {
+    #{$i * (100% / $colors)} {
+      background-color: hsl( ($i * 360 / $colors), 100%, 50%);
+    }
+  }
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  @extend %cf;
+  background-color: #000;
+  &.ranbow {
+    background-image: linear-gradient( rgba(200,200,200,0.6), rgba(0,0,0,1) );
+    animation: ranbow 10s infinite alternate;
+  }
+}
+
+.col-l {
+  @extend %col;
+  background-color: #fff;
+  background-image: url('../img/R+.svg');
+}
+
+.col-r {
+  @extend %col;
+  background-image: url('../img/poi.svg');
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+audio {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  transition: opacity 1s;
+  opacity: 0;
+}
+.show {
+  opacity: .5;
+}
+
+.online {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50px;
+  height: 50px;
+}
