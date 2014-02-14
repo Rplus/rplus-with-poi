@@ -1,5 +1,7 @@
 module.exports = function(grunt) {
 
+    require('load-grunt-tasks')(grunt);
+
     // Project configuration.
     grunt.initConfig({
         compass: {
@@ -44,12 +46,6 @@ module.exports = function(grunt) {
             }
         }
     });
-
-    // These plugins provide necessary tasks.
-    grunt.loadNpmTasks('grunt-contrib-connect');
-    grunt.loadNpmTasks('grunt-contrib-stylus');
-    grunt.loadNpmTasks('grunt-contrib-cssmin');
-    grunt.loadNpmTasks('grunt-contrib-watch');
 
     // Default task.
     grunt.registerTask('default', ['compass', 'cssmin']);
