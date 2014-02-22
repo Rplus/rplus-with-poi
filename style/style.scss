@@ -55,7 +55,9 @@ body {
   @extend %col;
   width: 100% - $ratio-L;
   background-image: url('../img/poi.svg');
-  &:hover {
+
+  // music ready: add pointer cursor
+  .music-loaded &:hover {
     cursor: pointer;
   }
 }
