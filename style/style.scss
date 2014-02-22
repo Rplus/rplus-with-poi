@@ -62,15 +62,22 @@ body {
   }
 }
 
-audio {
+// iframe
+#vimeoPlayer {
   position: fixed;
   bottom: 0;
-  right: 0;
-  transition: opacity 1s;
+  left: 0;
+  width: 100% - $ratio-L;
+  height: auto;
   opacity: 0;
-}
-.show {
-  opacity: .5;
+  transition: all 1s;
+  &.show {
+    left: $ratio-L;
+    opacity: .5;
+    &:hover {
+      opacity: 1;
+    }
+  }
 }
 
 .online {
