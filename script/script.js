@@ -1,41 +1,103 @@
 'use strict';
 
-var
-audio = document.getElementById('poiMusic'),
-_colR = document.querySelector('.col-r'),
-_body = document.getElementsByTagName('body')[0],
-playing = function () {
-  if (audio.paused) {
-    audio.play();
-  } else {
-    audio.pause();
-    _body.classList.remove('ranbow')
+
+
+var POI = {
+  iframe: document.getElementById('vimeoPlayer'),
+  _columnR: document.querySelector('.col-r'),
+  _body: document.getElementsByTagName('body')[0]
+};
+
+POI.url = POI.iframe.src.split('?')[0];
+
+// Helper function for sending a message to the player
+POI.post = function(action, value) {
+  var data = { method: action };
+
+  if (value) {
+    data.value = value;
   }
-},
-hideAudio = function () {
-  audio.classList.remove('show');
+
+  POI.iframe.contentWindow.postMessage(JSON.stringify(data), POI.url);
+};
+
+// Handle messages received from the player
+POI.onMessageReceived = function(e) {
+  var data = JSON.parse(e.data);
+
+  if ('playProgress' !== data.event) {
+    console.log('Vimeo API: ' + data.event);
+  }
+
+  switch (data.event) {
+    case 'ready':
+    POI.onReady();
+    break;
+
+    case 'playProgress':
+    POI.onPlayProgress(data.data);
+    break;
+
+    case 'pause':
+    POI.onPause();
+    break;
+
+    case 'finish':
+    POI.onFinish();
+    break;
+
+    case 'play':
+    POI.onPlay();
+    break;
+  }
+};
+
+POI.onReady = function() {
+
+  console.log('music loaded');
+
+  POI._columnR.addEventListener('click', function() {
+    var switchTo = POI._body.classList.contains('playing') ? 'pause' : 'play';
+    POI.post(switchTo);
+  }, false);
+
+  POI._columnR.addEventListener('contextmenu', function(event) {
+    POI.iframe.classList.toggle('show');
+  }, false);
+
+  POI._body.classList.add('music-loaded');
+
+  POI.post('addEventListener', 'play');
+  POI.post('addEventListener', 'pause');
+  POI.post('addEventListener', 'finish');
+  POI.post('addEventListener', 'playProgress');
+
+};
+
+POI.onPlay = function() {
+  console.log('music onPlay');
+  POI._body.classList.add('playing');
+};
+
+POI.onPause = function() {
+  console.log('music onPause');
+  POI._body.classList.remove('playing');
+};
+
+POI.onFinish = function() {
+  console.log('music onFinish');
+  POI._body.classList.remove('playing');
+  POI._body.classList.add('end');
+};
+
+POI.onPlayProgress = function(data) {
+  POI._body.classList.add('playing');
+};
+
+// Listen for messages from the player
+if (window.addEventListener){
+  window.addEventListener('message', POI.onMessageReceived, false);
 }
-;
-
-audio.addEventListener('loadedmetadata', function () {
-
-  audio.addEventListener('play', function(){
-    _body.classList.add('ranbow');
-    hideAudio();
-  }, false);
-
-  audio.addEventListener('pause', function(){
-    _body.classList.remove('ranbow');
-  }, false);
-
-  audio.addEventListener('ended', function(){
-    this.currentTime = 0;
-  }, false);
-
-  _colR.addEventListener('click', playing);
-
-}, false);
-
-_colR.addEventListener('mousewheel', function () {
-  audio.classList.toggle('show');
-}, false);
+else {
+  window.attachEvent('onmessage', POI.onMessageReceived, false);
+}
