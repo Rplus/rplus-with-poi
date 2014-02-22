@@ -1,14 +1,14 @@
-'use strict';
+var POI = {};
 
+(function(window, console, document, POI, undefined) {
 
+"use strict";
 
-var POI = {
-  iframe: document.getElementById('vimeoPlayer'),
-  _columnR: document.querySelector('.col-r'),
-  _body: document.getElementsByTagName('body')[0]
-};
-
+POI.iframe = document.getElementById('vimeoPlayer');
+POI._body = document.getElementsByTagName('body')[0];
+POI._columnR = document.querySelector('.col-r');
 POI.url = POI.iframe.src.split('?')[0];
+
 
 // Helper function for sending a message to the player
 POI.post = function(action, value) {
@@ -101,3 +101,6 @@ if (window.addEventListener){
 else {
   window.attachEvent('onmessage', POI.onMessageReceived, false);
 }
+
+/* global document, console, window */
+})(window, console, document, POI, undefined);
