@@ -35,7 +35,7 @@ body {
 body {
   @extend %cf;
   background-color: #000;
-  &.ranbow {
+  &.playing {
     background-image: linear-gradient( rgba(200,200,200,0.6), rgba(0,0,0,1) );
     animation: ranbow 10s infinite alternate;
   }
