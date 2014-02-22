@@ -1,3 +1,5 @@
+$ratio-L: 50%;
+
 %cf {
   &:after {
     content: '';
@@ -7,7 +9,7 @@
 }
 
 %col {
-  width: 50%;
+  width: 100% - $ratio-L;
   height: 100%;
   float: left;
   background-position: 50% 35%;
@@ -41,12 +43,17 @@ body {
 
 .col-l {
   @extend %col;
+  @if $ratio-L != 50% {
+    width: $ratio-L;
+    background-position: 50% ((50% - $ratio-L) / 5 + 35%);
+  }
   background-color: #fff;
   background-image: url('../img/R+.svg');
 }
 
 .col-r {
   @extend %col;
+  width: 100% - $ratio-L;
   background-image: url('../img/poi.svg');
   &:hover {
     cursor: pointer;
