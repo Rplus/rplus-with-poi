@@ -102,5 +102,4 @@ else {
   window.attachEvent('onmessage', POI.onMessageReceived, false);
 }
 
-/* global document, console, window */
 })(window, console, document, POI, undefined);
