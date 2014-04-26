@@ -22,6 +22,13 @@ module.exports = function(grunt) {
             }
         },
 
+        'gh-pages': {
+            options: {
+                base: 'build'
+            },
+            src: ['**/*']
+        },
+
         autoprefixer: {
             // option: browsers: ['last 2 version', 'ie 8', 'ie 9'],
             single_file: {
@@ -58,5 +65,5 @@ module.exports = function(grunt) {
     // Default task.
     grunt.registerTask('default', ['compass', 'cssmin']);
     grunt.registerTask('see', ['connect', 'watch']);
-    grunt.registerTask('make', ['compass', 'autoprefixer','cssmin']);
+    grunt.registerTask('make', ['compass', 'autoprefixer','cssmin', 'gh-pages']);
 };
