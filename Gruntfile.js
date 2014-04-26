@@ -7,9 +7,9 @@ module.exports = function(grunt) {
         compass: {
             dist: {
                 options: {
-                    cssDir: './style/',
-                    sassDir: './style/',
-                    imagesDir: './img/'
+                    cssDir: './build/style/',
+                    sassDir: './build/style/',
+                    imagesDir: './build/img/'
                 }
             }
         },
@@ -25,29 +25,29 @@ module.exports = function(grunt) {
         autoprefixer: {
             // option: browsers: ['last 2 version', 'ie 8', 'ie 9'],
             single_file: {
-                src: './style/style.css',
-                dest: './style/style.css'
+                src: './build/style/style.css',
+                dest: './build/style/style.css'
             }
         },
 
         cssmin: {
             minify: {
                 files: {
-                    './style/style.css': './style/style.css'
+                    './build/style/style.css': './build/style/style.css'
                 }
             }
         },
 
         watch: {
             compass: {
-                files: ['./style/*.scss'],
+                files: ['./build/style/*.scss'],
                 tasks: ['compass', 'autoprefixer'],
                 options: {
                     livereload: true
                 }
             },
             html: {
-                files: ['./index.html'],
+                files: ['./build/index.html'],
                 options: {
                     livereload: true
                 }
